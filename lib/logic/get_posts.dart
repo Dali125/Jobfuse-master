@@ -326,7 +326,10 @@ class _GetPostsState extends State<GetPosts> {
                           budget: data['Budget'],
                           clientId: data['Client_id'],
                           duration: data['Duration'],
-                          documentId : data['DocumentID']),  ));
+                          documentId : data['DocumentID'], category: data['category'], taskType: data['TaskType'],
+                      ),
+
+                      ));
                     },
                   );
 

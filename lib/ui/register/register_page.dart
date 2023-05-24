@@ -249,25 +249,25 @@ class _RegisterState extends State<Register> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(height: 30,),
+              const SizedBox(height: 30,),
 
               FadeInUp(
-                delay: Duration(milliseconds: 200),
+                delay: const Duration(milliseconds: 200),
                 child: Padding( 
                   padding: const EdgeInsets.all(25.0),
                   child: FadeInUp(child: TextGuide(text:'Tell us more about Yourself', fontSize: 22, padding: 1,)),
                 ),
               ),
-              SizedBox(height: 15,),
+              const SizedBox(height: 15,),
               FadeInUp(
                   delay: const Duration(milliseconds: 250),
                   child: Padding(
                 padding: const EdgeInsets.only(left: 25.0),
                 child: FadeInUp(
-                    delay: Duration(milliseconds: 250),
+                    delay: const Duration(milliseconds: 250),
                     child: TextGuide(text:'First Name', fontSize: 20, padding: 1,)),
               )),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
 
               Expanded(child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -304,7 +304,7 @@ class _RegisterState extends State<Register> {
                 }
 
               }, buttonText: 'Continue'),
-              SizedBox(height: 20,)
+              const SizedBox(height: 20,)
             ],
           ),
         );
@@ -318,25 +318,25 @@ class _RegisterState extends State<Register> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(height: 30,),
+                const SizedBox(height: 30,),
 
                 FadeInUp(
-                  delay: Duration(milliseconds: 200),
+                  delay: const Duration(milliseconds: 200),
                   child: Padding(
                     padding: const EdgeInsets.all(25.0),
                     child: FadeInUp(child: TextGuide(text:'We just need a bit more info', fontSize: 22, padding: 1,)),
                   ),
                 ),
-                SizedBox(height: 15,),
+                const SizedBox(height: 15,),
                 FadeInUp(
                     delay: const Duration(milliseconds: 250),
                     child: Padding(
                       padding: const EdgeInsets.only(left: 25.0),
                       child: FadeInUp(
-                          delay: Duration(milliseconds: 250),
+                          delay: const Duration(milliseconds: 250),
                           child: TextGuide(text:'NRC Number', fontSize: 20, padding: 1,)),
                     )),
-                SizedBox(height: 10,),
+                const SizedBox(height: 10,),
 
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -362,7 +362,7 @@ class _RegisterState extends State<Register> {
                 ),
 
 
-                SizedBox(height: 80,),
+                const SizedBox(height: 80,),
 
 
                 MyButton(onTap: (){
@@ -374,7 +374,7 @@ class _RegisterState extends State<Register> {
                   }
 
                 }, buttonText: 'Continue'),
-                SizedBox(height: 20,)
+                const SizedBox(height: 20,)
               ],
             ),
           ),
@@ -389,16 +389,16 @@ class _RegisterState extends State<Register> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(height: 30,),
+                const SizedBox(height: 30,),
 
                 FadeInUp(
-                  delay: Duration(milliseconds: 200),
+                  delay: const Duration(milliseconds: 200),
                   child: Padding(
                     padding: const EdgeInsets.all(25.0),
                     child: FadeInUp(child: TextGuide(text:'Stand out from the crowd, with a smile', fontSize: 22, padding: 1,)),
                   ),
                 ),
-                SizedBox(height: 15,),
+                const SizedBox(height: 15,),
 
                 Center(child: TextGuide(fontSize: 18, text: 'Choose a profile picture', padding: 1)),
 
@@ -410,7 +410,7 @@ class _RegisterState extends State<Register> {
 
                   ),
                 ),
-                SizedBox(height: 10,),
+                const SizedBox(height: 10,),
                 SizedBox(
                   height: 80,
                   child: Row(
@@ -438,7 +438,7 @@ class _RegisterState extends State<Register> {
 
 
 
-                SizedBox(height: 80,),
+                const SizedBox(height: 80,),
 
 
                 MyButton(onTap: (){
@@ -450,7 +450,7 @@ class _RegisterState extends State<Register> {
                   }
 
                 }, buttonText: 'Continue'),
-                SizedBox(height: 20,)
+                const SizedBox(height: 20,)
               ],
             ),
           ),
@@ -465,7 +465,7 @@ class _RegisterState extends State<Register> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(height: 30,),
+              const SizedBox(height: 30,),
 
               FadeInUp(
                 delay: const Duration(milliseconds: 200),
@@ -474,16 +474,16 @@ class _RegisterState extends State<Register> {
                   child: FadeInUp(child: TextGuide(text:'Lets Secure your account', fontSize: 22, padding: 1,)),
                 ),
               ),
-              SizedBox(height: 15,),
+              const SizedBox(height: 15,),
               FadeInUp(
                   delay: const Duration(milliseconds: 250),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 25.0),
                     child: FadeInUp(
-                        delay: Duration(milliseconds: 250),
+                        delay: const Duration(milliseconds: 250),
                         child: TextGuide(text:'Password', fontSize: 20, padding: 1,)),
                   )),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
 
               Expanded(child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -493,7 +493,8 @@ class _RegisterState extends State<Register> {
 
                   FadeInUp(
                       delay: const Duration(milliseconds: 300),
-                      child: MyTextField(controller: passwordController, hintText: 'Password', obscureText: true)),
+                      child: MyTextField(controller: passwordController, hintText: 'Password', obscureText: true,
+                      maxLines: 1,)),
 
                   const SizedBox(height: 10,),
                   FadeInUp(
@@ -504,7 +505,7 @@ class _RegisterState extends State<Register> {
                       )),
                   FadeInUp(
                       delay: const Duration(milliseconds: 400),
-                      child: MyTextField(controller: passwordMatcher, hintText: 'Confirm', obscureText: true)),
+                      child: MyTextField(controller: passwordMatcher, hintText: 'Confirm', obscureText: true, maxLines: 1,)),
                 ],
               )),
 
@@ -580,11 +581,11 @@ class _RegisterState extends State<Register> {
 
 
           TextGuide(fontSize: 20, text: 'One more thing before you go', padding: 20),
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
 
           TextGuide(fontSize: 18, text: 'Username', padding: 20),
           MyTextField(controller: username, hintText: 'Username', obscureText: false),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             TextGuide(fontSize: 18, text: 'Username', padding: 20),
           Expanded(child: MyTextField(controller: about, hintText: 'A short description about you', obscureText: false)),
           MyButton(onTap: (){
@@ -608,14 +609,14 @@ class _RegisterState extends State<Register> {
           children: [
 
             FadeInLeft(
-                delay: Duration(milliseconds: 200),
+                delay: const Duration(milliseconds: 200),
                 child: TextGuide(fontSize: 30, text: 'Finalize', padding: 15)),
 
 
 
             Center(
               child: FadeInDown(
-                  delay: Duration(milliseconds: 250),
+                  delay: const Duration(milliseconds: 250),
                   child:  CircleAvatar(
                   radius: 60,
                   child: Image.file(_image!))
@@ -624,28 +625,28 @@ class _RegisterState extends State<Register> {
               ),
             ),  
             FadeInUp(
-                delay: Duration(milliseconds: 300),
+                delay: const Duration(milliseconds: 300),
                 child: ListTile(leading:  Text('First Name', style: TextStyle(fontSize:unchangers, fontWeight: FontWeight.normal),),trailing: Text(first_name.text.toString(), style: TextStyle(fontSize: changers, fontWeight: FontWeight.bold),))),
             FadeInUp(
-                delay: Duration(milliseconds: 350),
+                delay: const Duration(milliseconds: 350),
                 child: ListTile(leading:  Text('Last Name', style: TextStyle(fontSize: unchangers),),trailing: Text(last_name.text.toString(), style: TextStyle(fontSize: changers, fontWeight: FontWeight.bold),),)),
             FadeInUp(
-                delay: Duration(milliseconds: 400),
+                delay: const Duration(milliseconds: 400),
                 child: ListTile(leading:  Text('email', style: TextStyle(fontSize: unchangers),),trailing: Text(email.text.toString(), style: TextStyle(fontSize: changers, fontWeight: FontWeight.bold),),)),
             FadeInUp(
-                delay: Duration(milliseconds: 450),
+                delay: const Duration(milliseconds: 450),
                 child: ListTile(leading:  Text('Username', style: TextStyle(fontSize: unchangers),),trailing: Text(username.text.toString(), style: TextStyle(fontSize: changers, fontWeight: FontWeight.bold),),)),
             FadeInUp(
-                delay: Duration(milliseconds: 500),
+                delay: const Duration(milliseconds: 500),
                 child: ListTile(leading:  Text('Phone Number', style: TextStyle(fontSize: unchangers),),trailing: Text(phonenumber.text.toString(), style: TextStyle(fontSize: changers, fontWeight: FontWeight.bold),),)),
             FadeInUp(
-                delay: Duration(milliseconds: 550),
+                delay: const Duration(milliseconds: 550),
                 child: ListTile(leading:  Text('NRC NUMBER', style: TextStyle(fontSize: unchangers),overflow: TextOverflow.clip,),trailing: Text(nrc.text.toString(),maxLines: 1, style: TextStyle(fontSize: changers, fontWeight: FontWeight.bold),),)),
 
 
 
             FadeInUp(
-              delay: Duration(milliseconds: 600),
+              delay: const Duration(milliseconds: 600),
               child: MyButton(onTap: (){
 
                 _submitForm();
@@ -666,18 +667,18 @@ class _RegisterState extends State<Register> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(height: 30,),
+              const SizedBox(height: 30,),
 
               Padding(
                 padding: const EdgeInsets.all(25.0),
                 child: FadeInUp(child: TextGuide(text:'Let\'s get started', fontSize: 25, padding: 1,)),
               ),
-              SizedBox(height: 15,),
+              const SizedBox(height: 15,),
               FadeInUp(child: Padding(
                 padding: const EdgeInsets.only(left: 25.0),
                 child: TextGuide(text:'Email', fontSize: 20, padding: 1,),
               )),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               Expanded(child: MyTextField(controller: email, hintText: 'Email', obscureText: false)),
 
 

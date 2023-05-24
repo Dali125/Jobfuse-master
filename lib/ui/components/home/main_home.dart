@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:jobfuse/ui/components/posts_page/main_posts.dart';
 import 'package:jobfuse/ui/contracts/contracts_page.dart';
@@ -32,7 +33,7 @@ var IconItems = <IconData>[
 
   Icons.home_outlined,
   Icons.abc_sharp,
-  Icons.close,
+  Icons.folder_open_rounded,
   Icons.message_outlined,
 
 
@@ -42,6 +43,19 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
 
 
 
+  void _requestFCMPermission(){
+
+    FirebaseMessaging.instance.requestPermission(
+
+
+      sound: true,
+      badge: true,
+      alert: true,
+      announcement: true
+
+
+    );
+  }
 
 
 
@@ -61,6 +75,9 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
+
+
+    _requestFCMPermission();
     rebuildAllChildren(context);
 
     double hieght = MediaQuery.of(context).size.height;

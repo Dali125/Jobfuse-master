@@ -270,7 +270,13 @@ class _GetRecommendedPostsState extends State<GetRecommendedPosts> {
             budget: widget.postDetails['Budget'],
             clientId: widget.postDetails['Client_id'],
             duration: widget.postDetails['Duration'],
-            documentId : widget.postDetails['DocumentID']),  ));
+            documentId : widget.postDetails['DocumentID'],
+          category: widget.postDetails['category'], taskType: widget.postDetails['TaskType'],
+
+
+
+        ),
+        ));
       },
     );
   }

@@ -93,6 +93,7 @@ dependencies:
   ussd_advanced:
   webview_flutter:
   im_stepper:
+  firebase_analytics:
 
 
 

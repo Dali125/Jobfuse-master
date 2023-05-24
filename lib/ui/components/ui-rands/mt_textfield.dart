@@ -7,6 +7,7 @@ class MyTextField extends StatelessWidget {
   final keyboardType;
   final errortext;
   final validator;
+  final maxLines;
 
   const MyTextField({
     super.key,
@@ -16,6 +17,7 @@ class MyTextField extends StatelessWidget {
     this.keyboardType,
     this.errortext,
     this.validator,
+    this.maxLines
   });
 
   @override
@@ -27,6 +29,7 @@ class MyTextField extends StatelessWidget {
         keyboardType: keyboardType,
         controller: controller,
         obscureText: obscureText,
+        maxLines: maxLines,
         decoration: InputDecoration(
             enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.white),

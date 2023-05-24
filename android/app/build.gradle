@@ -71,4 +71,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'app.rive:rive-android:4.0.0'
     implementation "androidx.startup:startup-runtime:1.1.0"
+    implementation 'com.google.android.gms:play-services-base:'
+    implementation 'com.google.firebase:firebase-analytics:'
+
+
 }

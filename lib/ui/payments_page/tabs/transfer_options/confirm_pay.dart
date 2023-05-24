@@ -3,6 +3,7 @@ import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import '../../../../constant_widget/alert_dialog.dart';
 import '../../../components/ui-rands/my_button.dart';
@@ -23,6 +24,9 @@ class SendMoney extends StatefulWidget {
 }
 
 class _SendMoneyState extends State<SendMoney> {
+
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+  FlutterLocalNotificationsPlugin();
   String currentBalance = "";
   var amount = TextEditingController(text: "0.00");
 
@@ -45,6 +49,16 @@ class _SendMoneyState extends State<SendMoney> {
 
     super.initState();
 
+    final initializationSettingsAndroid =
+    AndroidInitializationSettings('@mipmap/ic_launcher');
+
+    final initializationSettings = InitializationSettings(
+      android: initializationSettingsAndroid,
+
+    );
+
+    flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
     _focusNode.addListener(onFocusChanged);
     currentBalance =  getBalance().toString() ;
   }
@@ -66,6 +80,27 @@ class _SendMoneyState extends State<SendMoney> {
     var data = snapshot.docs as Map<String, dynamic>;
     return data['balance'].toString();
 }
+
+
+  Future<void> _showNotification(String title, String body) async {
+    final androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      'channel_id',
+      'channel_name',
+      importance: Importance.max,
+      priority: Priority.high,
+    );
+    final iOSPlatformChannelSpecifics = IOSNotificationDetails();
+    final platformChannelSpecifics = NotificationDetails(
+      android: androidPlatformChannelSpecifics,
+      iOS: iOSPlatformChannelSpecifics,
+    );
+    await flutterLocalNotificationsPlugin.show(
+      0,
+      title,
+      body,
+      platformChannelSpecifics,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

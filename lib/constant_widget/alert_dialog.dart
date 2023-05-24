@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:jobfuse/logic/balance_logic.dart';
 import 'package:stylish_dialog/stylish_dialog.dart';
 import '../ui/colors/colors.dart';
@@ -25,6 +26,52 @@ class MyDialogue extends StatefulWidget {
 
 class _MyDialogueState extends State<MyDialogue> {
   int success = 2;
+
+
+
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+  FlutterLocalNotificationsPlugin();
+
+
+
+
+
+
+  void initState() {
+    super.initState();
+    final initializationSettingsAndroid =
+    AndroidInitializationSettings('@mipmap/ic_launcher');
+    final initializationSettingsIOS = IOSInitializationSettings();
+    final initializationSettings = InitializationSettings(
+      android: initializationSettingsAndroid,
+      iOS: initializationSettingsIOS,
+    );
+    flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  }
+
+
+  Future<void> _showNotification(String title, String body) async {
+    final androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      'channel_id',
+      'channel_name',
+
+      importance: Importance.max,
+      priority: Priority.high,
+    );
+    final iOSPlatformChannelSpecifics = IOSNotificationDetails();
+    final platformChannelSpecifics = NotificationDetails(
+      android: androidPlatformChannelSpecifics,
+      iOS: iOSPlatformChannelSpecifics,
+    );
+    await flutterLocalNotificationsPlugin.show(
+      0,
+      title,
+      body,
+      platformChannelSpecifics,
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -101,6 +148,8 @@ class _MyDialogueState extends State<MyDialogue> {
                         title: const Text('Transfer Completw'),
                         content: const Text('Tap anywhere to exit'),
                       ).show();
+
+                      _showNotification('Money Transfer', 'Successfully sent ${widget.balanceToAdd}');
                     }
                   } catch (e) {
                     //

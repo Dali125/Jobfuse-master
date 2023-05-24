@@ -38,7 +38,7 @@ class _MyServicesState extends State<MyServices> {
 
                           //Image.network(services['service_image'],height: 110,fit: BoxFit.fitWidth,),
                           ),
-                          SizedBox(height: 10,),
+                          const SizedBox(height: 10,),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(services['description']),
@@ -52,12 +52,12 @@ class _MyServicesState extends State<MyServices> {
 
 
                   }, separatorBuilder: (BuildContext context, int index) {
-                  return SizedBox(width: 15,);
+                  return const SizedBox(width: 15,);
                 },);
               } else if (snapshot.hasError) {
-                return Icon(Icons.error_outline);
+                return const Icon(Icons.error_outline);
               } else {
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               }
             }));
   }

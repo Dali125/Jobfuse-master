@@ -77,14 +77,14 @@ class _DepositState extends State<Deposit> {
                       InkWell(
                         child: PaymentOptionBlock(
                           image:
-                              'assets/mobile_money_icons/AirtelMoneyCharges.png',
+                              'assets/mobile_money_icons/card.png',
                         ),
                         onTap: (){
 
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>  CardPay()));
+                                  builder: (context) =>  const CardPay()));
                         },
                       ),
                     ],

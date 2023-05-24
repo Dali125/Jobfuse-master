@@ -107,6 +107,7 @@ class _LoginState extends State<Login> {
                 // password textfield
                 FadeInRight(
                   child: MyTextField(
+                    maxLines: 1,
                     controller: passwordController,
                     hintText: 'Password',
                     obscureText: true,

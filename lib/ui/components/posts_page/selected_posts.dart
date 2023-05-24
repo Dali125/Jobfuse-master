@@ -26,8 +26,10 @@ class SelectedPost extends StatefulWidget {
   String budget;
   String duration;
   String documentId;
+  String category;
+  String taskType;
   SelectedPost({Key? key,required this.experienceLevel, required this.description, required this.title
-  ,required this.budget, required this.clientId, required this.duration, required this.documentId
+  ,required this.budget, required this.clientId, required this.duration, required this.documentId, required this.category, required this.taskType
   }) : super(key: key);
 
   @override
@@ -99,8 +101,18 @@ class _SelectedPostState extends State<SelectedPost> {
                                       children: [
                                         const SizedBox(height:
                                         10,),
+
                                         FadeInUp(
-                                          delay: const Duration(milliseconds: 200),
+                                            delay: const Duration(milliseconds: 300),
+                                            child: Text('Posted by :  ${data?[0].get('UserName')}',style: const TextStyle(fontSize: 20),)),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        FadeInUp(
+                                            delay: const Duration(milliseconds: 350),
+                                            child: Divider()),
+                                        FadeInUp(
+                                          delay: const Duration(milliseconds: 400),
                                           child: Center(
                                             child: Text(widget.title,style: const TextStyle(
                                                 fontSize: 27,
@@ -108,52 +120,76 @@ class _SelectedPostState extends State<SelectedPost> {
                                             ),),
                                           ),
                                         ),
+                                        FadeInUp(
+                                            delay: const Duration(milliseconds: 450),
+                                            child: Divider()),
 
                                         const SizedBox(height: 10,),
-                                      FadeInUp(
-                                          delay: const Duration(milliseconds: 300),
-                                          child: Text('Posted by :  ${data?[0].get('UserName')}',style: const TextStyle(fontSize: 20),)),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
+
 
                                         FadeInUp(
-                                          delay: const Duration(milliseconds: 400),
-                                          child: const Center(
-                                            child: Text('Client Description',style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 26
-                                            ),),
-                                          ),
+                                          delay: const Duration(milliseconds: 500),
+                                          child: Text('Client Description',style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 26
+                                          ),),
                                         ),
                                         const SizedBox(height: 10,),
 
 
-                                        FadeInDown(
-                                          delay: const Duration(milliseconds: 450),
+                                        FadeInUp(
+                                          delay: const Duration(milliseconds: 600),
                                           child: Text(widget.description, style: const TextStyle(
                                           ),),
                                         ),
+                                        FadeInUp(
+                                            delay: const Duration(milliseconds: 650),
+                                            child: Divider()),
 
                                         const SizedBox(height: 10,),
-                                        FadeInDown(
-                                            delay: const Duration(milliseconds: 500),
+                                        FadeInUp(
+                                            delay: const Duration(milliseconds: 700),
                                             child: TextGuide(fontSize: 20, text: 'Estimated Project Duration', padding: 1)),
 
-                                        FadeInDown(
-                                            delay: const Duration(milliseconds: 550),
+                                        FadeInUp(
+                                            delay: const Duration(milliseconds: 800),
                                             child: Text(widget.duration)),
 
+                                        FadeInLeft(
+                                            delay: const Duration(milliseconds: 850),
+                                            child: Divider()),
 
                                         const SizedBox(height: 10,),
-                                        TextGuide(fontSize: 20, text: 'Experience Level', padding: 1),
+                                        FadeInUp(
 
-                                        Text(widget.experienceLevel),
+                                            delay: Duration(milliseconds: 900),
+                                            child: TextGuide(fontSize: 20, text: 'Task Type', padding: 1)),
+
+                                        FadeInUp(
+                                            delay: Duration(milliseconds: 1000),
+                                            child: Text(widget.taskType)),
+
+                                        FadeInLeft(
+                                            delay: const Duration(milliseconds: 1050),
+                                            child: Divider()),
 
                                         const SizedBox(height: 10,),
-                                        const Text('Estimated Budget', style: TextStyle(fontSize: 20),),
+                                        FadeInUp(
+                                            delay: Duration(milliseconds: 1100),
+                                            child: TextGuide(fontSize: 20, text: 'Experience Level', padding: 1)),
 
-                                        Text(widget.budget.toString())
+                                        FadeInUp(
+                                            delay: Duration(milliseconds: 1200),
+                                            child: BounceInUp(child: Text(widget.experienceLevel))),
+
+                                        const SizedBox(height: 10,),
+                                        FadeInUp(
+                                            delay: Duration(milliseconds: 1300),
+                                            child: const Text('Estimated Budget', style: TextStyle(fontSize: 20),)),
+
+                                        FadeInUp(
+                                            delay: Duration(milliseconds: 1400),
+                                            child: Text(widget.budget.toString()))
 
 
 
@@ -164,106 +200,108 @@ class _SelectedPostState extends State<SelectedPost> {
                                 ),
                               ),
                               //For the Button to apply
-                              Expanded(
-                                  flex: 1,
-                                  child: widget.clientId == myId ? Padding(
-                                    padding: const EdgeInsets.only(bottom: 10),
-                                    child: Row(
-                                      children: [
-                                        MyButton(onTap: (){
+                              BounceInUp(
+                                child: Expanded(
+                                    flex: 1,
+                                    child: widget.clientId == myId ? Padding(
+                                      padding: const EdgeInsets.only(bottom: 10),
+                                      child: Row(
+                                        children: [
+                                          MyButton(onTap: (){
 
 
-                                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PostEdit(
-                                            experienceLevel: widget.experienceLevel,
-                                            description: widget.description,
-                                            title: widget.title,
-                                            budget: widget.budget,
-                                            clientId: widget.clientId,
-                                            duration: widget.duration,
-                                            projectID: widget.documentId
+                                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PostEdit(
+                                              experienceLevel: widget.experienceLevel,
+                                              description: widget.description,
+                                              title: widget.title,
+                                              budget: widget.budget,
+                                              clientId: widget.clientId,
+                                              duration: widget.duration,
+                                              projectID: widget.documentId
 
 
-                                          )));
+                                            )));
 
-                                        }, buttonText: 'Edit Post'),
-                                        const SizedBox(width: 15,),
-                                        //To Delete a post
-                                        MyButton(onTap: (){
+                                          }, buttonText: 'Edit Post'),
+                                          const SizedBox(width: 15,),
+                                          //To Delete a post
+                                          MyButton(onTap: (){
 
-                                          print('tapped to delete');
-                                         EditPost editpost = EditPost(budget: widget.budget,
-                                             description: widget.description,
-                                             documentId: widget.documentId,
-                                             duration: widget.duration,
-                                             experiencelevel: widget.experienceLevel,
-                                             title: widget.title);
+                                            print('tapped to delete');
+                                           EditPost editpost = EditPost(budget: widget.budget,
+                                               description: widget.description,
+                                               documentId: widget.documentId,
+                                               duration: widget.duration,
+                                               experiencelevel: widget.experienceLevel,
+                                               title: widget.title);
 
-                                          editpost.deletePost();
-
-
-                                          Fluttertoast.showToast(msg: 'Operation Successful', gravity: ToastGravity.BOTTOM);
+                                            editpost.deletePost();
 
 
-                                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Home()));
+                                            Fluttertoast.showToast(msg: 'Operation Successful', gravity: ToastGravity.BOTTOM);
 
 
-
-                                        }, buttonText: 'Delete Post')
-                                      ],
-                                    ),
-                                  ) :
-                                  MyButton(onTap: (){
+                                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Home()));
 
 
 
-                                    try{
-                                      showDialog<void>(
-                                            context: context,
-                                            barrierDismissible: true,
-                                            // false = user must tap button, true = tap outside dialog
-                                            builder: (BuildContext dialogContext) {
-                                              return SingleChildScrollView(
-                                                child: AlertDialog(
-                                                  title: const Text('Enter a remark, on why you should take the job '),
-                                                  content: TextField(
-                                                    controller: remarksController,
+                                          }, buttonText: 'Delete Post')
+                                        ],
+                                      ),
+                                    ) :
+                                    MyButton(onTap: (){
 
-                                                  ),
-                                                  actions: <Widget>[
-                                                    TextButton(
-                                                      child: const Text('Submit'),
-                                                      onPressed: () {
 
-                                                        ProposalSubmission psub = ProposalSubmission(remarksController.text.trim(),widget.clientId, myId, widget.documentId);
 
-                                                        psub.submitProposal();
-                                                        Navigator.of(dialogContext)
-                                                            .pop();
-                                                        Fluttertoast.showToast(msg: 'Operation Successful');// Dismiss alert dialog
-                                                      },
+                                      try{
+                                        showDialog<void>(
+                                              context: context,
+                                              barrierDismissible: true,
+                                              // false = user must tap button, true = tap outside dialog
+                                              builder: (BuildContext dialogContext) {
+                                                return SingleChildScrollView(
+                                                  child: AlertDialog(
+                                                    title: const Text('Enter a remark, on why you should take the job '),
+                                                    content: TextField(
+                                                      controller: remarksController,
+
                                                     ),
-                                                  ],
-                                                ),
-                                              );
-                                            },
-                                          );
+                                                    actions: <Widget>[
+                                                      TextButton(
+                                                        child: const Text('Submit'),
+                                                        onPressed: () {
 
-                                         // ProposalSubmission psub = ProposalSubmission(widget.clientId, myId, widget.documentId);
+                                                          ProposalSubmission psub = ProposalSubmission(remarksController.text.trim(),widget.clientId, myId, widget.documentId);
 
-                                      //psub.submitProposal();
+                                                          psub.submitProposal();
+                                                          Navigator.of(dialogContext)
+                                                              .pop();
+                                                          Fluttertoast.showToast(msg: 'Operation Successful');// Dismiss alert dialog
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                            );
 
-                                      Fluttertoast.showToast(msg: 'Successfully Applied for job');
+                                           // ProposalSubmission psub = ProposalSubmission(widget.clientId, myId, widget.documentId);
 
-                                    }catch (e){
+                                        //psub.submitProposal();
 
+                                        Fluttertoast.showToast(msg: 'Successfully Applied for job');
 
-                                      return Fluttertoast.showToast(msg: 'Operation failed');
-                                    }
-
-
+                                      }catch (e){
 
 
-                                  }, buttonText: 'Apply')
+                                        return Fluttertoast.showToast(msg: 'Operation failed');
+                                      }
+
+
+
+
+                                    }, buttonText: 'Apply')
+                                ),
                               )
 
                             ],

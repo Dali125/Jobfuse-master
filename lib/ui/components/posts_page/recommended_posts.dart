@@ -37,55 +37,64 @@ class _RecommendedPostsState extends State<RecommendedPosts> {
   Widget build(BuildContext context) {
     return Scaffold(
 
-      appBar: AppBar(),
+      appBar: AppBar(title: Text('Recommended Posts'),),
 
       //This future builder uses a recommendation algorithm to filter and show what the user can want
       body: Padding(
         padding: const EdgeInsets.only(left: 20, right: 20),
-        child: FutureBuilder(
-          //Get the users details, and take note of the users interests using the future builder
-        future: FirebaseFirestore.instance.collection('users').where('Userid', isEqualTo: uid).get(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-           if (snapshot.hasData) {
+        child: Column(
 
-             //Get all the users data, which will be cleaned to only show the users interests
-             var data = snapshot.data.docs[0];
-             //Cleaned data will be stored here
-             List categories = data['interests'];
-             //The stream builder retrieves the possible recommendations for each user
-           return StreamBuilder(
-               stream: FirebaseFirestore.instance.collection('ProjectTasks').
-               where('category', whereIn: categories).snapshots(),
-               builder: (BuildContext context,snapshot) {
-                 //This is a successful attempt in a scenario where the users recommendations were successful
+          children: [
+            Text('Posts here are based only on your interests', style: TextStyle(fontSize: 20),),
+            SizedBox(height: 40,),
+            Expanded(
+              child: FutureBuilder(
+                //Get the users details, and take note of the users interests using the future builder
+              future: FirebaseFirestore.instance.collection('users').where('Userid', isEqualTo: uid).get(),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
                  if (snapshot.hasData) {
-                   return ListView.separated(
-                       itemCount: snapshot.data!.docs.length,
-                       itemBuilder: (context, index){
 
-                         var postData = snapshot.data?.docs[index];
+                   //Get all the users data, which will be cleaned to only show the users interests
+                   var data = snapshot.data.docs[0];
+                   //Cleaned data will be stored here
+                   List categories = data['interests'];
+                   //The stream builder retrieves the possible recommendations for each user
+                 return StreamBuilder(
+                     stream: FirebaseFirestore.instance.collection('ProjectTasks').
+                     where('category', whereIn: categories).snapshots(),
+                     builder: (BuildContext context,snapshot) {
+                       //This is a successful attempt in a scenario where the users recommendations were successful
+                       if (snapshot.hasData) {
+                         return ListView.separated(
+                             itemCount: snapshot.data!.docs.length,
+                             itemBuilder: (context, index){
+
+                               var postData = snapshot.data?.docs[index];
 
 
-                         return GetRecommendedPosts(postDetails: postData,);
+                               return GetRecommendedPosts(postDetails: postData,);
 
 
 
 
-                   }, separatorBuilder: (BuildContext context, int index) {
-                         return const SizedBox(height: 20,);
-                   },);
-                 } else if (snapshot.hasError) {
-                   return const Icon(Icons.error_outline);
-                 } else {
-                   return const CircularProgressIndicator();
-                 }
-               });
+                         }, separatorBuilder: (BuildContext context, int index) {
+                               return const SizedBox(height: 20,);
+                         },);
+                       } else if (snapshot.hasError) {
+                         return const Icon(Icons.error_outline);
+                       } else {
+                         return const CircularProgressIndicator();
+                       }
+                     });
     } else if (snapshot.hasError) {
-            return const Icon(Icons.error_outline);
+                  return const Icon(Icons.error_outline);
     } else {
-               return const CircularProgressIndicator();
+                     return const CircularProgressIndicator();
     }
     }),
+            ),
+          ],
+        ),
       ));
   }
 }

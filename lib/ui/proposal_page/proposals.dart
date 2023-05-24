@@ -27,11 +27,11 @@ class _ProposalsState extends State<Proposals> {
 
         gradient: LinearGradient(
           tileMode: TileMode.repeated,
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
             colors: [
               AppColors.logColor,
-              Colors.white70,
+              Colors.grey.shade100,
             ]),
 
         appBar: AppBar(
@@ -39,8 +39,8 @@ class _ProposalsState extends State<Proposals> {
           backgroundColor: Colors.transparent,
           elevation: 0,
 
-          title: DelayedDisplay(delay: Duration(milliseconds: 200)
-              ,child: const Text('Proposals')),
+          title: const DelayedDisplay(delay: Duration(milliseconds: 200)
+              ,child: Text('Proposals')),
           centerTitle: true,
           bottom: const TabBar(
 
