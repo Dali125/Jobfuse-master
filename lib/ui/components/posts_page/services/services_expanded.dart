@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:jobfuse/ui/message/ChosenChat.dart';
 
 import '../../ui-rands/my_button.dart';
 
@@ -15,6 +17,11 @@ class EpandedServices extends StatefulWidget {
 }
 
 class _EpandedServicesState extends State<EpandedServices> {
+
+
+  String currentUser = FirebaseAuth.instance.currentUser!.uid.toString();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +29,7 @@ class _EpandedServicesState extends State<EpandedServices> {
         children: [
           Expanded(
             child: CustomScrollView(
+              shrinkWrap: true,
               physics: BouncingScrollPhysics(),
               slivers: [
                 SliverAppBar(
@@ -52,31 +60,67 @@ class _EpandedServicesState extends State<EpandedServices> {
                               var user = snapshot.data!.docs[index];
                               return Container(
 
-                                child:Column(
+                                child:Padding(
+                                  padding: const EdgeInsets.only(left: 8.0, right: 20),
+                                  child: Column(
 
-                                  children: [
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
 
-                                    Text(user['title'], style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold
-                                    ),),
-                                    Text(user['description'], style: TextStyle(
+                                          SizedBox(width: 40,),
+                                          TextButton(onPressed: ()async{
+
+                                            //Reference the collection
+                                            CollectionReference usersCollection =
+                                            FirebaseFirestore.instance.collection('users');
+
+                                            //Query the snapshot
+                                            QuerySnapshot querySnapshot = await usersCollection
+                                                .where('Userid',isEqualTo: user['Userid'])
+                                                .get();
+
+                                            //Get the document data
+                                            DocumentSnapshot userdata = querySnapshot.docs[0];
+
+                                            //We wanted the user id
+                                            String userId = userdata.get('Userid');
+                                            String image = userdata.get('imageUrl');
+                                            String name = userdata.get('First_name') +' ' + userdata.get('Last_name');
+
+
+
+
+                                            Navigator.push(context, MaterialPageRoute(builder: (context) => MyChosenChat(currentUser: currentUser, otherUser: user['Userid'], chattername: name, chatterImage: image)));
+
+
+                                          }, child: Text('Contact'))
+                                        ],
+                                      ),
+
+                                      Text(user['title'], style: TextStyle(
                                         fontSize: 25,
                                         fontWeight: FontWeight.bold
-                                    ),),
-                                    Text(user['minimum_price'], style: TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold
-                                    ),),
+                                      ),),
+                                      Text(user['description'], style: TextStyle(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold
+                                      ),),
+                                      Text(user['minimum_price'], style: TextStyle(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold
+                                      ),),
 
 
-                                   
-                                    MyButton(onTap: () { print('something'); }, buttonText: 'continue',)
+
+                                      MyButton(onTap: () { print('something'); }, buttonText: 'continue',)
 
 
 
 
-                                  ],
+                                    ],
+                                  ),
                                 )
 
                               );

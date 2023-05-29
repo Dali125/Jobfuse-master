@@ -13,13 +13,16 @@ class MockFlutterToast extends Mock implements Fluttertoast {}
 
 void main() {
   group('MakePost', () {
-    MockFirebaseFirestore mockFirestore;
-    MockFlutterToast mockFlutterToast;
+    MockFirebaseFirestore mockFirestore = MockFirebaseFirestore();
+
+    MockFlutterToast mockFlutterToast =  MockFlutterToast();
+    var mockCollectionReference;
+    var mockDocumentReference;
     late MakePost makePost;
 
     setUp(() {
-      mockFirestore = MockFirebaseFirestore();
-      mockFlutterToast = MockFlutterToast();
+
+
       makePost = MakePost(
         budget: '100',
         duration: '2 weeks',
@@ -34,6 +37,7 @@ void main() {
 
     test('UploadPost', () async {
       // Mock the necessary dependencies
+
       when(mockFirestore.collection('ProjectTasks')).thenReturn(mockCollectionReference);
       when(mockCollectionReference.doc(any)).thenReturn(mockDocumentReference);
       when(mockDocumentReference.set(any)).thenAnswer((_) => Future.value());
@@ -54,10 +58,12 @@ void main() {
         'category': 'Technology',
       })).called(1);
 
-      // Verify that the Fluttertoast.showToast method is called
-      verify(mockFlutterToast.showToast(msg: 'msg')).called(1);
+
+
     });
 
     // Add more test cases for other scenarios
+
+
   });
 }

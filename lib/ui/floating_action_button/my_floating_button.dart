@@ -4,6 +4,7 @@ import 'package:jobfuse/ui/colors/colors.dart';
 import 'package:jobfuse/ui/components/posts_page/create_post.dart';
 
 import '../components/posts_page/create_step_post.dart';
+import '../profile_page/Services/services_add.dart';
 class MyFAB extends StatefulWidget {
   const MyFAB({Key? key}) : super(key: key);
 
@@ -19,7 +20,7 @@ class _MyFABState extends State<MyFAB> {
       width: 60,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-        color: AppColors.logColor
+        color: Colors.orangeAccent
       ),
       child: IconButton(
 
@@ -31,10 +32,13 @@ class _MyFABState extends State<MyFAB> {
           return Column(
 
             children: [
+              const Padding(
+                padding: EdgeInsets.all(20.0),
+                child: Center(child: Text('Quick Actions'),),
+              ),
               const SizedBox(
                 height: 30,
               ),
-              // FadeInUp(
               //
               //   delay: const Duration(milliseconds: 200),
               //   child: ListTile(
@@ -46,9 +50,10 @@ class _MyFABState extends State<MyFAB> {
               //       Navigator.of(context).push(_createRoute());
               //     },
               //   ),
-              // ),
+              // ),        // FadeInUp(
+
               ListTile(
-                title: Text('Dalitso'),
+                title: const Text('Post a Task'),
 
                 onTap: (){
 
@@ -57,7 +62,12 @@ class _MyFABState extends State<MyFAB> {
                 },
               ),
               ListTile(
-                title: Text('Dalitso'),
+                title: const Text('Post a service'),
+
+                onTap: (){
+                  Navigator.of(context).push(_createServiceRoute());
+                },
+
               ),
 
 
@@ -74,25 +84,25 @@ class _MyFABState extends State<MyFAB> {
   }
 }
 
-// Route _createRoute() {
-//   return PageRouteBuilder(
-//     pageBuilder: (context, animation, secondaryAnimation) => CreatePost(),
-//     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-//       const begin = Offset(0.0, 1.0);
-//       const end = Offset.zero;
-//       const curve = Curves.elasticOut;
-//       var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-//       final offsetAnimation = animation.drive(tween);
-//       return SlideTransition(position: offsetAnimation,child: child,);
-//     },
-//   );
-//
-//
-// }
+Route _createServiceRoute() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => const ServicesAdd(),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(0.0, 1.0);
+      const end = Offset.zero;
+      const curve = Curves.linearToEaseOut;
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+      final offsetAnimation = animation.drive(tween);
+      return SlideTransition(position: offsetAnimation,child: child,);
+    },
+  );
+
+
+}
 
 Route _createStepRoute() {
   return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => StepPost(),
+    pageBuilder: (context, animation, secondaryAnimation) => const StepPost(),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       const begin = Offset(0.0, 1.0);
       const end = Offset.zero;

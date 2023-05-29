@@ -60,7 +60,7 @@ class _TransferState extends State<Transfer> {
                     shadowColor: AppColors.splashColor2,
                     expandedHeight: 120,
                     flexibleSpace: Center(
-                      child: Text('Money Management',
+                      child: Text('Transfer',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 30,
