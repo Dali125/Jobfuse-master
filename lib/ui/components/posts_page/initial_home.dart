@@ -1,16 +1,19 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:jobfuse/constant_widget/popular_services%20card.dart';
 import 'package:jobfuse/ui/components/posts_page/recommended_posts.dart';
 import 'package:jobfuse/ui/components/posts_page/services/all_services.dart';
 import 'package:jobfuse/ui/components/posts_page/services/servicesTab.dart';
+import 'package:jobfuse/ui/components/posts_page/services/services_expanded.dart';
 import 'package:jobfuse/ui/components/posts_page/tabs/Search.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
+
 
 import '../../../constant_widget/card.dart';
 import '../../colors/colors.dart';
@@ -24,11 +27,13 @@ class InitialHome extends StatefulWidget {
 
 class _InitialHomeState extends State<InitialHome> {
 
+
+  String newu = '';
   final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
 
   void servicesEvent(String serviceName) async {
     await _analytics.logEvent(
-      name: 'event_choosen',
+      name: 'event_chosen',
       parameters: {
         'button_id': 'popular_services',
         'page_name': 'initial_home',
@@ -141,8 +146,7 @@ class _InitialHomeState extends State<InitialHome> {
                                         InkWell(child: PopularService(imageUrl: services['image'],category: services['category'],),
                                         onTap: (){
 
-                                          print(services['image']);
-                                          print(services['category']);
+
                                           Navigator.push(context, MaterialPageRoute(builder: (context) => SelecteServices(category: services['category'], docId: services['document_id'])));
                                           servicesEvent(services['category']);
                                         },),
@@ -166,7 +170,7 @@ class _InitialHomeState extends State<InitialHome> {
                           } else {
 
                             return SizedBox(
-                              height: 220,
+                              height: 200,
                               width: width,
                               child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
@@ -207,6 +211,138 @@ class _InitialHomeState extends State<InitialHome> {
 
                   Text('See All')
                 ],
+
+
+              ),
+
+              const SizedBox(
+                height: 10,
+              ),
+              FadeInUp(
+                delay: const Duration(milliseconds: 1000),
+                child: SizedBox(
+                    height: 300,
+                    width: width,
+                    child: StreamBuilder(
+                        stream: FirebaseFirestore.instance.collection('browsing_history').
+                        where('user_id', isEqualTo: FirebaseAuth.instance.currentUser!.uid.toString()).
+                        snapshots(),
+                        builder: (BuildContext context, snapshot) {
+                          if (snapshot.hasData) {
+                            return ListView.separated(
+
+
+
+                              
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.data!.docs.length,
+                              itemBuilder: (context,index){
+                                var services1 = snapshot.data!.docs[index];
+                               return Container(
+                                 height: 220,
+                                 width: 220,
+                                 child: StreamBuilder(
+                                      stream: FirebaseFirestore.instance.collection('freelance_services').
+                                      where('document_id', isEqualTo: services1['service_id']).snapshots(),
+                                      builder: (BuildContext context,
+                                          snapshot) {
+                                        if (snapshot.hasData)  {
+                                          return ListView.separated
+
+                                            (
+                                              scrollDirection: Axis.vertical,
+                                              itemBuilder: (context, index){
+
+                                            var services = snapshot.data!.docs[index];
+
+
+
+
+
+                                            //Reference the collection
+
+
+                                            return Material(
+                                              elevation: 10,
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  InkWell(child: PopularService(imageUrl: services['service_image'],category: services['category'],),
+                                                    onTap: (){
+
+
+
+
+                                                      Navigator.push(context, MaterialPageRoute(builder: (context) =>
+
+                                                          EpandedServices(image: services['service_image'], userId: services['Userid'], docId: services['document_id'])
+                                                      )
+                                                      );
+                                                      servicesEvent(services['description']);
+                                                    },),
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: Column(
+
+                                                      children: [
+                                                        Text(services['description'],
+                                                        overflow: TextOverflow.clip,
+                                                        maxLines: 1,),
+                                                        Text('K${services['minimum_price']}')
+                                                      ],
+                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            );
+
+
+
+                                          }, separatorBuilder:
+
+                                              (BuildContext context, int index) {
+                                            return const SizedBox(width: 15,);
+                                          }
+                                              , itemCount: snapshot.data!.docs.length);
+                                        } else if (snapshot.hasError) {
+                                          return const Icon(Icons.error_outline);
+                                        } else {
+                                          return const CircularProgressIndicator();
+                                        }
+                                      }),
+                               );
+
+
+                              }, separatorBuilder: (BuildContext context, int index) {
+                              return const SizedBox(width: 15,);
+                            },);
+
+
+                          } else if (snapshot.hasError) {
+
+                            return const Icon(Icons.error_outline);
+                          } else {
+
+                            return SizedBox(
+                                height: 220,
+                                width: width,
+                                child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: 4,
+                                    itemBuilder: (context , index){
+                                      return Shimmer(
+                                          color: Colors.grey.shade500,
+                                          child: const SizedBox(
+                                            height: 220,
+                                            width: 220,
+
+                                          ));
+                                    })
+                            );
+                          }
+                        })),
               ),
 
 

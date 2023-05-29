@@ -58,10 +58,11 @@ class _DepositState extends State<Deposit> {
                   height: 20,
                 ),
 
-                FadeInLeft(
-                  child: Row(
-                    children: [
-                      InkWell(
+                Row(
+                  children: [
+                    BounceInLeft(
+                      delay:Duration(milliseconds:250),
+                      child: InkWell(
                           child: PaymentOptionBlock(
                               image:
                                   'assets/mobile_money_icons/AirtelMoneyCharges.png'),
@@ -71,10 +72,15 @@ class _DepositState extends State<Deposit> {
                                 MaterialPageRoute(
                                     builder: (context) => const AIRTEL()));
                           }),
-                      SizedBox(
+                    ),
+                    BounceInRight(
+                      child: SizedBox(
                         width: 15,
                       ),
-                      InkWell(
+                    ),
+                    BounceInRight(
+                      delay:Duration(milliseconds:350),
+                      child: InkWell(
                         child: PaymentOptionBlock(
                           image:
                               'assets/mobile_money_icons/card.png',
@@ -87,34 +93,41 @@ class _DepositState extends State<Deposit> {
                                   builder: (context) =>  const CardPay()));
                         },
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 Row(
                   children: [
-                    InkWell(
-                      child: PaymentOptionBlock(
-                          image: 'assets/mobile_money_icons/MTN.png'),
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => MTN()));
-                      },
+                    BounceInLeft(
+                      delay:Duration(milliseconds:450),
+                      child: InkWell(
+                        child: PaymentOptionBlock(
+                            image: 'assets/mobile_money_icons/MTN.png'),
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => MTN()));
+                        },
+                      ),
                     ),
                     SizedBox(
                       width: 15,
                     ),
-                    InkWell(
-                        child: PaymentOptionBlock(
-                            image: 'assets/mobile_money_icons/ZamtelMoney.png'),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ZAMTEL()));
-                        }),
+                    BounceInRight(
+                      delay:Duration(milliseconds:550),
+                      child: InkWell(
+                        
+                          child: PaymentOptionBlock(
+                              image: 'assets/mobile_money_icons/ZamtelMoney.png'),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ZAMTEL()));
+                          }),
+                    ),
                   ],
                 ),
 

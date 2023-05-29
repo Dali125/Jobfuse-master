@@ -57,10 +57,12 @@ class MTN extends StatelessWidget {
 
           await Navigator.push(context,
             MaterialPageRoute(
-              builder: (context) => WebView(
-                backgroundColor: Colors.black,
-                initialUrl: responseData['meta']['authorization']['redirect'],
-                javascriptMode: JavascriptMode.unrestricted,
+              builder: (context) => Scaffold(
+                body: WebView(
+                  backgroundColor: Colors.white,
+                  initialUrl: responseData['meta']['authorization']['redirect'],
+                  javascriptMode: JavascriptMode.unrestricted,
+                ),
               ),
             ),
           );

@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:delayed_display/delayed_display.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
@@ -77,7 +78,7 @@ class _ClientContractsState extends State<ClientContracts> {
 
                           SlidableAction(onPressed: (context){
 
-                            showDialog(
+                            showCupertinoDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
@@ -97,6 +98,7 @@ class _ClientContractsState extends State<ClientContracts> {
                                     TextButton(
                                       onPressed: () {
 
+                                        Navigator.of(context).pop();
 
                                       },
 
@@ -152,8 +154,8 @@ class _ClientContractsState extends State<ClientContracts> {
 
                           },
                             backgroundColor: Colors.green,
-                            icon: Icons.monetization_on_outlined,
-                            label: 'Payout',
+                            icon: Icons.transfer_within_a_station_outlined,
+                            label: 'Submit work',
                             flex: 2,
                           ),
 

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:jobfuse/ui/drawer/my_drawer.dart';
 
 
 import '../colors/colors.dart';
@@ -16,33 +17,22 @@ class _ChatsState extends State<Chats> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text('Messages'),
+      centerTitle: true,),
 
-      body: CustomScrollView(
+      body: const CustomScrollView(
 
         slivers: [
-         SliverAppBar(
-           backgroundColor: AppColors.logColor,
 
-            expandedHeight: 120,
-            flexibleSpace: Padding(
-              padding: const EdgeInsets.only(left: 25, top: 30),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-
-                  Text('Messages', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
-                ],
-              ),
-            ),
-          ),
           SliverToBoxAdapter(child: ChooseChat(),)
         ],
 
 
 
 
-      )
+      ),
 
+        drawer: MyDrawer(),
     );
   }
 }

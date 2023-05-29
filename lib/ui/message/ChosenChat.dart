@@ -33,6 +33,7 @@ class _MyChosenChatState extends State<MyChosenChat> {
         .get()
         .then((value) => value.docs.forEach((element) {
               print(element);
+
               myId.add(element.reference.id);
               print(myId);
             }));
@@ -46,7 +47,7 @@ class _MyChosenChatState extends State<MyChosenChat> {
     } else if (myId.contains("${widget.otherUser}-${widget.currentUser}")) {
       this.groupId = "${widget.otherUser}-${widget.currentUser}";
     }
-    else {
+    if(!myId.contains("${widget.otherUser}-${widget.currentUser}") || myId.contains("${widget.currentUser}-${widget.otherUser}")) {
 
       int date = DateTime.now().millisecondsSinceEpoch;
       String currentU = "${widget.currentUser}";
@@ -75,6 +76,31 @@ class _MyChosenChatState extends State<MyChosenChat> {
     super.dispose();
   }
 
+  Future<bool> checkBoth(String user1, String user2) async{
+
+    List<String> values = [user1, user2];
+    try{
+
+
+      final List<QuerySnapshot> snapshots = await Future.wait(
+
+        values.map((value) =>
+        FirebaseFirestore.instance.collection('messages').where('users', arrayContains: value).get())
+        );
+
+
+      return snapshots.every((element) => element.docs.isNotEmpty);
+    }catch(e){
+
+      return false;
+    }
+  }
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -82,18 +108,46 @@ class _MyChosenChatState extends State<MyChosenChat> {
     return Scaffold(
         appBar: AppBar(
 
-          leading:Container(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () async{
 
-            height: 30,
-            width: 30,
-            clipBehavior: Clip.antiAlias,
-            decoration: const BoxDecoration(
-                shape: BoxShape.circle),
-            child: Image.network(
-              widget.chatterImage,
-              fit: BoxFit.cover,
-            ),
-          ),title: Text(widget.chattername),
+              bool exists = await checkBoth(widget.currentUser, widget.otherUser);
+              if(exists){
+
+                print('Both values exist');
+              }else{
+
+                FirebaseFirestore.instance.collection('messages').add({
+                  'users':{
+                    widget.currentUser,
+                    widget.otherUser
+
+                  }
+                });
+                print('Both dont values exist');
+              }
+
+              Navigator.pop(context);
+            },
+          ),
+         title: Row(
+           children: [
+             Container(
+
+               height: 30,
+               width: 30,
+               clipBehavior: Clip.antiAlias,
+               decoration: const BoxDecoration(
+                   shape: BoxShape.circle),
+               child: Image.network(
+                 widget.chatterImage,
+                 fit: BoxFit.cover,
+               ),
+             ),
+             Text(widget.chattername),
+           ],
+         ),
 
         ),
         body: FutureBuilder(

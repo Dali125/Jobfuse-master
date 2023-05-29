@@ -1,12 +1,14 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jobfuse/constant_widget/confirm_hire.dart';
 import 'package:jobfuse/logic/hire_logic.dart';
 import 'package:jobfuse/ui/colors/colors.dart';
 import 'package:jobfuse/ui/components/ui-rands/my_button.dart';
+import 'package:jobfuse/ui/message/ChosenChat.dart';
 import 'package:jobfuse/ui/profile_page/stalker_profile_view.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:expansion_widget/expansion_widget.dart';
@@ -132,7 +134,7 @@ class _ReceivedBlockState extends State<ReceivedBlock> {
 
                                             // Icon(Icons.settings,
                                             //     size: 40, color: Color.lerp(Colors.black, AppColors.splashColor, easeInValue)),
-                                                         Text('${userData!['First_name']} ${userData['Last_name']}', style: TextStyle(fontSize: 20,color: Color.lerp(Colors.black, AppColors.splashColor, easeInValue))),
+                                                         Text('${userData!['First_name']} ${userData['Last_name']}', style: TextStyle(fontSize: 18,color: Color.lerp(Colors.black, AppColors.splashColor, easeInValue))),
 
                                                            Transform.rotate(
                                                              angle: -math.pi * 2 * (easeInValue),
@@ -171,7 +173,7 @@ class _ReceivedBlockState extends State<ReceivedBlock> {
                                                      Container(
                                                        color: Colors.transparent,
                                                         height: 1,
-                                                        width: easeInValue * math.pi * 15,
+                                                        width: easeInValue * math.pi * 14,
                                                   ),
                                                    Transform.rotate(
                                                     angle: math.pi * (easeInValue + 0.5),
@@ -200,7 +202,7 @@ class _ReceivedBlockState extends State<ReceivedBlock> {
                 ),),
                 Text(widget.remarks),
 
-                SizedBox(
+                const SizedBox(
                   height:
                   10,
                 ),
@@ -212,7 +214,7 @@ class _ReceivedBlockState extends State<ReceivedBlock> {
                     MyButton(onTap: (){
 
                       //The dialog is used to confirm if the user wants to continue with the action they have specified
-                      showDialog(
+                      showCupertinoDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
@@ -239,6 +241,7 @@ class _ReceivedBlockState extends State<ReceivedBlock> {
                               TextButton(
                                 onPressed: () {
 
+                                  Navigator.pop(context);
 
                                 },
 
@@ -252,7 +255,12 @@ class _ReceivedBlockState extends State<ReceivedBlock> {
 
 
                     }, buttonText: 'Hire'),
-                    MyButton(onTap: (){}, buttonText: 'Message'),
+                    MyButton(onTap: (){
+
+
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MyChosenChat(currentUser: currentUserId, otherUser: userData?['Userid'], chattername: '${userData?['First_name']} ${userData?['Last_name']}', chatterImage: userData?['imageUrl'])));
+
+                    }, buttonText: 'Message'),
                   ],
                 )
               ],

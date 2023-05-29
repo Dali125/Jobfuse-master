@@ -4,6 +4,7 @@ import 'package:delayed_display/delayed_display.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:jobfuse/constant_widget/card.dart';
+import 'package:jobfuse/constant_widget/card_for_amount.dart';
 import 'package:jobfuse/ui/components/ui-rands/text_guides.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
@@ -76,7 +77,7 @@ class _PayMentHomeState extends State<PayMentHome> {
                             children: [
 
                               FadeInUp(
-                                child: Text('${currentUserDetails['First_name']}',
+                                child: Text('${currentUserDetails['First_name']} ${currentUserDetails['Last_name']}',
                                 style: const TextStyle(
                                   fontSize: 25,
                                   fontWeight: FontWeight.bold
@@ -118,7 +119,7 @@ class _PayMentHomeState extends State<PayMentHome> {
 
 
 
-                                      MyCard();
+                                      BalanceCard();
                                   }else if(snapshot.connectionState == ConnectionState.waiting)
                                   {
                                     return const Text('Loading');
